@@ -27,7 +27,7 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoService service;
 	
-	@GetMapping 
+	@GetMapping
 	public List<Produto> getProdutos() {
 		return service.findAll();
 	}
@@ -36,32 +36,31 @@ public class ProdutoController {
 	public Produto getProdutoById(@PathVariable("id") Long produtoId) {
 		Optional<Produto> opProduto = service.findById(produtoId);
 		
-		if (opProduto.isPresent()) {
-			return opProduto.get();
+		if (opProduto.isEmpty()) {
+			String msg = String.format("Nenhum produto encontrado com id [%s]", produtoId);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, msg);
 		}
 		
-		String msg = String.format("Nnenhum produto encontrado com if [%s]", produtoId);
-		throw new ResponseStatusException(HttpStatus.NOT_FOUND, msg);
+		return opProduto.get();
 	}
 	
 	@PostMapping
-	@ResponseStatus(code = HttpStatus.CREATED)
+	@ResponseStatus (code = HttpStatus.CREATED)
 	public Produto postProduto(@RequestBody Produto p) {
 		Produto produtoCriado = service.create(p);
 		return produtoCriado;
-		
 	}
 	
 	@PutMapping
-	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	@ResponseStatus (code = HttpStatus.NO_CONTENT)
 	public void putProduto(@RequestBody Produto p) {
 		service.update(p);
 	}
 	
 	@DeleteMapping("/{id}")
-	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	@ResponseStatus (code = HttpStatus.NO_CONTENT)
 	public void deleteProduto(@PathVariable("id") Long produtoId) {
-		Produto produtoEncontrado = getProdutoById(produtoId);
+		Produto produtoEncontrado = this.getProdutoById(produtoId);
 		service.remove(produtoEncontrado);
 	}
 	

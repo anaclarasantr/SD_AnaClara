@@ -9,7 +9,7 @@ public class WebClientGetMonoProdutoPeloId {
 		
 		
 		try {
-			Mono<ProdutoDTO> monoProduto = WebClient.create("http://localhost:54014")
+			Mono<ProdutoDTO> monoProduto = WebClient.create("http://localhost:8080")
 			.get().uri("/produto/3")
 			.retrieve()
 			.bodyToMono(ProdutoDTO.class);
