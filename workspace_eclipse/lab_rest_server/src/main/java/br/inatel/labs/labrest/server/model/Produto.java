@@ -5,22 +5,22 @@ import java.util.Objects;
 
 public class Produto {
 	private Long id;
-	
+
 	private String descricao;
-	
+
 	private BigDecimal preco;
 
-	//Constructor gerado com ctrl+3 > gcuf (Generate constructor using fields)
+	// Constructor gerado com ctrl+3 > gcuf (Generate constructor using fields)
 	public Produto(Long id, String descricao, BigDecimal preco) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
 		this.preco = preco;
 	}
-	
-	//Constructor padrao
+
+	// Constructor
 	public Produto() {
-		
+
 	}
 
 	public Long getId() {
@@ -63,7 +63,5 @@ public class Produto {
 		Produto other = (Produto) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
+
 }

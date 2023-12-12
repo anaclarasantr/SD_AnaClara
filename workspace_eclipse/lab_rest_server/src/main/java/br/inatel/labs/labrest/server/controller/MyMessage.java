@@ -2,13 +2,13 @@ package br.inatel.labs.labrest.server.controller;
 
 public class MyMessage {
 
-	private String info;
+	private String informacao;
 
 	public String getInfo() {
-		return info;
+		return informacao;
 	}
 
 	public void setInfo(String info) {
-		this.info = info;
+		this.informacao = info;
 	}
 }

@@ -23,47 +23,47 @@ import br.inatel.labs.labrest.server.service.ProdutoService;
 @RestController
 @RequestMapping("/produto")
 public class ProdutoController {
-	
+
 	@Autowired
 	private ProdutoService service;
-	
+
 	@GetMapping
 	public List<Produto> getProdutos() {
 		return service.findAll();
 	}
-	
+
 	@GetMapping("/{id}")
 	public Produto getProdutoById(@PathVariable("id") Long produtoId) {
 		Optional<Produto> opProduto = service.findById(produtoId);
-		
+
 		if (opProduto.isEmpty()) {
-			String msg = String.format("Nenhum produto encontrado com id [%s]", produtoId);
+			String msg = String.format("Nenhum produto encontrado com o id [%s]", produtoId);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, msg);
 		}
-		
+
 		return opProduto.get();
 	}
-	
+
 	@PostMapping
-	@ResponseStatus (code = HttpStatus.CREATED)
+	@ResponseStatus(code = HttpStatus.CREATED)
 	public Produto postProduto(@RequestBody Produto p) {
 		Produto produtoCriado = service.create(p);
 		return produtoCriado;
 	}
-	
+
 	@PutMapping
-	@ResponseStatus (code = HttpStatus.NO_CONTENT)
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void putProduto(@RequestBody Produto p) {
 		service.update(p);
 	}
-	
+
 	@DeleteMapping("/{id}")
-	@ResponseStatus (code = HttpStatus.NO_CONTENT)
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void deleteProduto(@PathVariable("id") Long produtoId) {
 		Produto produtoEncontrado = this.getProdutoById(produtoId);
 		service.remove(produtoEncontrado);
 	}
-	
+
 	@GetMapping("/pesquisa")
 	public List<Produto> getByFragDescricao(@RequestParam("descricao") String fragDescricao) {
 		return service.findByFragDescricao(fragDescricao);

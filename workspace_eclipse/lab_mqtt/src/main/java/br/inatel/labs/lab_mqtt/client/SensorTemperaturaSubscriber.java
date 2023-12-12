@@ -12,31 +12,29 @@ public class SensorTemperaturaSubscriber {
 	public static void main(String[] args) {
 		String subscriberId = UUID.randomUUID().toString();
 		IMqttClient subscriber = null;
-		
+
 		try {
 			subscriber = new MqttClient(MyConstants.URI_BROKER, subscriberId);
-			
+
 			MqttConnectOptions options = new MqttConnectOptions();
 			options.setAutomaticReconnect(true);
 			options.setCleanSession(true);
 			options.setConnectionTimeout(10);
 			subscriber.connect(options);
-			System.out.println("Subscriber conectado e aguardando msg...");
-			
+			System.out.println("Subscriber conectado e aguardando mensagem...");
+
 			subscriber.subscribe(MyConstants.TOPIC_SENSOR, (topic, msg) -> {
-				//byte[] payload = msg.getPayload();
-				System.out.println("Mensagem recebida: "+ msg);
-				System.out.println("Topic especifico: "+ topic);
+				System.out.println("Mensagem recebida: " + msg);
+				System.out.println("Topic especifico: " + topic);
 			});
-			
-			
-		}catch(MqttException e) {
+
+		} catch (MqttException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				subscriber.close();
-			}catch(MqttException e) {
-				
+			} catch (MqttException e) {
+
 			}
 		}
 	}

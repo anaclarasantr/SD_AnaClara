@@ -10,21 +10,20 @@ import reactor.core.publisher.Flux;
 
 public class WebClientGetFluxProduto {
 	public static void main(String[] args) {
-		
-		List<ProdutoDTO> listaProduto = new ArrayList<>();
-		
-		
-	Flux<ProdutoDTO> fluxProduto = WebClient.create("http://localhost:8080")
-		.get()
-		.uri("/produto")
-		.retrieve()
-		.bodyToFlux(ProdutoDTO.class);
-	
-		fluxProduto.subscribe( p -> listaProduto.add(p));
-		
-		fluxProduto.blockLast();//bloqueia até o último bloco chegar
-		
+
+		List<ProdutoDTO> listaProd = new ArrayList<>();
+
+		Flux<ProdutoDTO> fluxProduto = WebClient.create("http://localhost:8080")
+				.get()
+				.uri("/produto")
+				.retrieve()
+				.bodyToFlux(ProdutoDTO.class);
+
+		fluxProduto.subscribe(p -> listaProd.add(p));
+
+		fluxProduto.blockLast();// bloqueia até o último bloco chegar
+
 		System.out.println("Lista de produtos: ");
-		System.out.println(listaProduto);
+		System.out.println(listaProd);
 	}
 }

@@ -11,7 +11,7 @@ public class HelloController {
 	@GetMapping
 	public MyMessage processarGetHello() {
 		MyMessage msg = new MyMessage();
-		msg.setInfo("Ola mundo REST");
+		msg.setInfo("Ola");
 		return msg;
 	}
 }
